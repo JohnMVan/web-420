@@ -1,0 +1,74 @@
+# Title: Composer.api
+# Author: John Vanhessche
+# Date: 6 November 2022
+# Description:  Composer API as expressed in YAML
+
+
+openapi: "3.0.0"
+info:
+  title: Find all composers
+  version: 1.0.0
+paths:
+  /composers:
+    description: Find all composers
+    get:
+     summary: Return all composers
+      tags:
+        - composers
+      description: API for returning all composers.
+      summary: returns a list of composers.
+      responses:
+        '200':
+          description: composer documents
+        '500':
+          description: Server Exception
+        '501':
+          description: MongoDB Exceptions
+paths:
+  /composers{id}:
+    get:
+      description: find a composer by their id
+      tags:
+        - composers
+      description: API for returning a single composer from MongoDB.
+      summary: returns a single composer.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Id to filter the composer collection by.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: composer document in JSON format
+        '500':
+          description: Server Exception
+        '501':
+          description: MongoDB Exception
+paths:
+  /composers:
+    post:
+      description: create a composer
+      tags:
+        - composers
+      description: API for adding a new composer to MongoDB.
+      summary: Create a new composer document.
+      requestBody:
+        description: composer information.
+        content:
+          application/json:
+            schema:
+              required:
+                - firstName
+                - lastName
+              properties:
+                userName:
+                  type: string
+      responses:
+        '200':
+          description: user added
+        '500':
+          description: Server Exception
+        '501':
+          description: MongoDB Exception
