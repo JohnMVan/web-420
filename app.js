@@ -14,6 +14,7 @@ const http = require('http');     //Added during Assignment 1.2
 const swaggerUI = require('swagger-ui-express');     //Added during Assignment 1.2
 const swaggerJsdoc = require('swagger-jsdoc');     //Added during Assignment 1.2
 const mongoose = require('mongoose');     //Added during Assignment 1.2
+const composerApi = require('./routes/vanhessche-composer-routes');
 
 //Variables
 const app = express();     //Added during Assignment 1.2
@@ -26,6 +27,20 @@ app.use(express.json());     //Added during Assignment 1.2
 
 //URL settings
 app.use(express.urlencoded({'extended': true}));       //Added during Assignment 1.2
+
+//mongoose
+const conn = `mongodb+srv://web420_user:s3cret@bellevueuniversity.ouotidt.mongodb.net/web4200DB?retryWrites=true&w=majority`;
+
+mongoose.connect(conn, {
+    promiseLibrary: require('bluebird'),
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+}).then(() => {
+    console.log(`Connection to web420DB on MongoDB Atlas successful`);
+}).catch(err => {
+    console.log(`MongoDB Error: ${err.message}`);
+})
+
 
 //openAPI and Swagger settings
 const options = {                                //Added during Assignment 1.2
@@ -40,7 +55,10 @@ const options = {                                //Added during Assignment 1.2
 }; 
 
 const openapiSpecification = swaggerJsdoc(options);      //Added during Assignment 1.2
+
+//using apis
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openapiSpecification));     //Added during Assignment 1.2
+app.use('/api', composerApi);
 
 //Creating new http server
 http.createServer(app).listen(PORT, () => {
