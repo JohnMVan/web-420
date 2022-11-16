@@ -27,15 +27,15 @@ const Composer = require('../models/vanhessche-composer');
  *       '501':
  *         description: MongoDB Exception.
  */
- router.get('/composers', async(req, res) => {
+ router.get('/composers', async(req, res) => {    
     try {
         Composer.find({}, function(err, composers) {
             if (err) {
                 console.log(err);
                 res.status(501).send({
-                    'message': `MongoDB Exception: ${err}`                    
-                })                
-            } else {
+                    'message': `MongoDB Exception: ${err}`
+                })    
+            } else {                
                 console.log(composers);
                 res.json(composers);
             }
@@ -46,7 +46,7 @@ const Composer = require('../models/vanhessche-composer');
             'message': `Server Exception: ${e.message}`
         })
     }
-})
+});
 
 /**
  * findComposerById
@@ -72,14 +72,15 @@ const Composer = require('../models/vanhessche-composer');
  *       '501':
  *         description: MongoDB Exception
  */
- router.get('/composers/{:id}', async(req, res) => {
+ router.get('/composers/:id', async(req, res) => {
     try {
         Composer.findOne({'_id': req.params.id}, function(err, composer) {
             if (err) {
                 console.log(err);
-                res.status(500).send({
+                res.status(501).send({
                     'message': `MongoDB Exception: ${err}`
-                })
+                })            
+            
             } else {
                 console.log(composer);
                 res.json(composer);
@@ -91,7 +92,7 @@ const Composer = require('../models/vanhessche-composer');
             'message': `Server Exception: ${e.message}`
         })
     }
-})
+});
 
 /**
  * createComposer
@@ -101,7 +102,7 @@ const Composer = require('../models/vanhessche-composer');
  *     tags:
  *       - Composers
  *     name: createComposer
- *     description: API for adding a new fruit composer to MongoDB Atlas
+ *     description: API for adding a new composer to MongoDB Atlas
  *     summary: Creates a new composer document
  *     requestBody:
  *       description: Composer information
@@ -109,13 +110,18 @@ const Composer = require('../models/vanhessche-composer');
  *         application/json:
  *           schema:
  *             required:
- *               - type
+ *               - firstName
+ *               - lastName
  *             properties:
- *               type:
+ *               firstName:
+ *                 description: First name of composer
+ *                 type: string
+ *               lastName:
+ *                 description: Last name of composer
  *                 type: string
  *     responses:
  *       '200':
- *         description: Fruit added
+ *         description: Composer added
  *       '500':
  *         description: Server Exception
  *       '501':
@@ -124,7 +130,8 @@ const Composer = require('../models/vanhessche-composer');
  router.post('/composers', async(req, res) => {
     try {
         const newComposer = {
-            type: req.body.type
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
         }
 
         await Composer.create(newComposer, function(err, composer) {
@@ -132,7 +139,8 @@ const Composer = require('../models/vanhessche-composer');
                 console.log(err);
                 res.status(501).send({
                     'message': `MongoDB Exception: ${err}`
-                })
+                })            
+            
             } else {
                 console.log(composer);
                 res.json(composer);
@@ -144,7 +152,7 @@ const Composer = require('../models/vanhessche-composer');
             'message': `Server Exception: ${e.message}`
         })
     }
-})
+});
 
 module.exports = router;
 

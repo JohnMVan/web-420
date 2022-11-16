@@ -26,10 +26,10 @@ const PORT = process.env.PORT || 3000;      //Added during Assignment 1.2
 app.use(express.json());     //Added during Assignment 1.2
 
 //URL settings
-app.use(express.urlencoded({'extended': true}));       //Added during Assignment 1.2
+app.use(express.urlencoded({'extend': true}));       //Added during Assignment 1.2
 
 //mongoose
-const conn = `mongodb+srv://web420_user:s3cret@bellevueuniversity.ouotidt.mongodb.net/web4200DB?retryWrites=true&w=majority`;
+const conn = `mongodb+srv://web420_user:s3cret@bellevueuniversity.ouotidt.mongodb.net/web420DB?retryWrites=true&w=majority`;
 
 mongoose.connect(conn, {
     promiseLibrary: require('bluebird'),
