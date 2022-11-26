@@ -16,6 +16,7 @@ const swaggerJsdoc = require('swagger-jsdoc');     //Added during Assignment 1.2
 const mongoose = require('mongoose');     //Added during Assignment 1.2
 const composerApi = require('./routes/vanhessche-composer-routes');
 const personApi = require('./routes/vanhessche-person-routes');
+const userApi = require('./routes/vanhessche-session-routes');
 
 //Variables
 const app = express();     //Added during Assignment 1.2
@@ -61,6 +62,7 @@ const openapiSpecification = swaggerJsdoc(options);      //Added during Assignme
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openapiSpecification));     //Added during Assignment 1.2
 app.use('/api', composerApi);
 app.use('/api', personApi);
+app.use('/api', userApi);
 
 //Creating new http server
 http.createServer(app).listen(PORT, () => {
