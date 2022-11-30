@@ -17,6 +17,7 @@ const mongoose = require('mongoose');     //Added during Assignment 1.2
 const composerApi = require('./routes/vanhessche-composer-routes');
 const personApi = require('./routes/vanhessche-person-routes');
 const userApi = require('./routes/vanhessche-session-routes');
+const customerApi = require('./routes/vanhessche-node-shopper-routes');
 
 //Variables
 const app = express();     //Added during Assignment 1.2
@@ -28,7 +29,7 @@ const PORT = process.env.PORT || 3000;      //Added during Assignment 1.2
 app.use(express.json());     //Added during Assignment 1.2
 
 //URL settings
-app.use(express.urlencoded({'extend': true}));       //Added during Assignment 1.2
+app.use(express.urlencoded({'extended': true}));       //Added during Assignment 1.2
 
 //mongoose
 const conn = `mongodb+srv://web420_user:s3cret@bellevueuniversity.ouotidt.mongodb.net/web420DB?retryWrites=true&w=majority`;
@@ -63,6 +64,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openapiSpecification));   
 app.use('/api', composerApi);
 app.use('/api', personApi);
 app.use('/api', userApi);
+app.use('/api', customerApi);
 
 //Creating new http server
 http.createServer(app).listen(PORT, () => {

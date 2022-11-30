@@ -26,6 +26,7 @@ const Person = require('../models/vanhessche-person');
  *       '501':
  *         description: MongoDB Exception
  */
+
  router.get('/persons', async(req, res) => {
     try {
         Person.find({}, function(err, persons) {
@@ -98,6 +99,7 @@ const Person = require('../models/vanhessche-person');
  *       '501':
  *         description: MongoDB Exception
  */
+
  router.post('/persons', async(req, res) => {
     try {
         const newPerson = {
