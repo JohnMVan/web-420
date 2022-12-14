@@ -46,7 +46,7 @@ const Person = require('../models/vanhessche-person');
             'message': `Server Exception: ${e.message}`
         })
     }
-})
+});
 
 /**
  * createPerson

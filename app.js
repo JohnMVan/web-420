@@ -18,6 +18,7 @@ const composerApi = require('./routes/vanhessche-composer-routes');
 const personApi = require('./routes/vanhessche-person-routes');
 const userApi = require('./routes/vanhessche-session-routes');
 const customerApi = require('./routes/vanhessche-node-shopper-routes');
+const teamApi = require('./routes/vanhessche-team-routes');
 
 //Variables
 const app = express();     //Added during Assignment 1.2
@@ -65,6 +66,11 @@ app.use('/api', composerApi);
 app.use('/api', personApi);
 app.use('/api', userApi);
 app.use('/api', customerApi);
+app.use('/api', teamApi);
+
+app.get('/', async(req, res) => {
+    res.redirect('/api-docs');
+})
 
 //Creating new http server
 http.createServer(app).listen(PORT, () => {
